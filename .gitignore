@@ -49,3 +49,5 @@ yarn.lock
 
 # Arquivos de linting
 eslintcache
+
+backEndCru/db_data/

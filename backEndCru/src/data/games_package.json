@@ -1,0 +1,74 @@
+{
+  "games": [
+    {
+      "rank": 1,
+      "name": "Legend of the Phoenix",
+      "developer": "Sky Studios",
+      "genre": "Action RPG",
+      "releaseDate": "2023-11-15"
+    },
+    {
+      "rank": 2,
+      "name": "Mystic Warriors",
+      "developer": "Epic Creations",
+      "genre": "Adventure",
+      "releaseDate": "2022-05-12"
+    },
+    {
+      "rank": 3,
+      "name": "Galaxy Defender",
+      "developer": "Nova Interactive",
+      "genre": "Sci-Fi Shooter",
+      "releaseDate": "2021-09-30"
+    },
+    {
+      "rank": 4,
+      "name": "Dragon's Legacy",
+      "developer": "Fenix Games",
+      "genre": "Fantasy RPG",
+      "releaseDate": "2024-03-22"
+    },
+    {
+      "rank": 5,
+      "name": "Cyber Frontier",
+      "developer": "NeoTech",
+      "genre": "Cyberpunk Action",
+      "releaseDate": "2022-11-08"
+    },
+    {
+      "rank": 6,
+      "name": "Shadow Strike",
+      "developer": "DarkBlade Studios",
+      "genre": "Stealth Action",
+      "releaseDate": "2023-07-19"
+    },
+    {
+      "rank": 7,
+      "name": "Ocean's Quest",
+      "developer": "Blue Horizon",
+      "genre": "Open World Adventure",
+      "releaseDate": "2021-04-03"
+    },
+    {
+      "rank": 8,
+      "name": "Mecha Domination",
+      "developer": "Iron Core",
+      "genre": "Mecha Strategy",
+      "releaseDate": "2023-06-25"
+    },
+    {
+      "rank": 9,
+      "name": "Sorcerer's Gambit",
+      "developer": "Magic Labs",
+      "genre": "Fantasy Strategy",
+      "releaseDate": "2022-10-01"
+    },
+    {
+      "rank": 10,
+      "name": "Racing Legends",
+      "developer": "SpeedForce",
+      "genre": "Racing",
+      "releaseDate": "2023-02-14"
+    }
+  ]
+}

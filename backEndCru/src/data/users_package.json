@@ -1,0 +1,76 @@
+{
+  "users": [
+    {
+      "name": "Admin",
+      "surname": "Admin",
+      "email": "admin@admin.com",
+      "password": "admin123"
+    },
+    {
+      "name": "John",
+      "surname": "Doe",
+      "email": "john.doe@example.com",
+      "password": "$2a$10$qw64AWSlYlratpReWtVTKua4xaLCf.xib0K/ZtdRv/GqvtKfKP5cq"
+    },
+    {
+      "name": "vini",
+      "surname": "vini",
+      "email": "vini@example.com",
+      "password": "$2a$10$K6yhfq2mEd7eE5pcFiycWeVjjD5KWthGfmrLffYwPB5.SxV0u/ySO"
+    },
+    {
+      "name": "vini",
+      "surname": "vini",
+      "email": "vini@example.com",
+      "password": "$2a$10$Q6QyAJSCVoZ0oyiWTNUQiuKcjtgPfuMkeQeUlHRXHYL0h9Qry2HDO"
+    },
+    {
+      "name": "cini",
+      "surname": "ciasn",
+      "email": "vini@gmial.com",
+      "password": "$2a$10$e3wXqQwDL.PksFhtl4rfu.6.ut0CojI0urve/Y.F.jD2H5t/vW9wm"
+    },
+    {
+      "name": "caasdni",
+      "surname": "ciasn",
+      "email": "vinias@gmial.com",
+      "password": "$2a$10$M/cGIKvSE7qosXUb42ZmV.b.vSlCG9hmkMSDH/JyecKEAauL.Ujgq"
+    },
+    {
+      "name": "John",
+      "surname": "Doe",
+      "email": "john.doe@example.com",
+      "password": "$2a$10$8wTb3tEgKMfkmbXC1yJBnunLIPk6Y7ElAXASHntAEyFx498YBjnme"
+    },
+    {
+      "name": "John",
+      "surname": "Doe",
+      "email": "john.doe@example.com",
+      "password": "$2a$10$pLVGMztGStIi3/tr2hzdXOWW83FOerRk6NZ2L60xQkLR7tLty97Qq"
+    },
+    {
+      "name": "Vinicius",
+      "surname": "Belizario",
+      "email": "vbelizario@tebe.com.br",
+      "password": "$2a$10$acEA9IKaSEi5ab0gDk2cxOoxXsZ/JqOIfNJyR.2/OzJvlNmTZO/fa"
+    },
+    {
+      "name": "Joãasdo",
+      "surname": "Silasdva",
+      "email": "joaaso.silva@example.com",
+      "password": "$2a$10$3OtI9wLfWrcbx4nrsjAikesAoAllDffpOJwPy3F7Z/vc7SHO9oOwG"
+    },
+    {
+      "name": "João",
+      "surname": "Silva",
+      "email": "joao.silva@example.com",
+      "password": "$2a$10$.xGFtZ23CSVLAwmyCW/oEeUYG3iJpgDUG9sYrUpICSC079YNlxTBW"
+    },
+    {
+      "name": "Joasdasão",
+      "surname": "Silva",
+      "email": "joao.silva@example.com",
+      "password": "$2a$10$DdlKU73eQkCQN76jDmfFHe4rK63vV5r1BbbQVS5HU7pZaoPM03Nde"
+    }
+  ]
+}

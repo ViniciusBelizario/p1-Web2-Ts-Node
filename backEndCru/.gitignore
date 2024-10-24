@@ -35,3 +35,17 @@ Thumbs.db
 
 # Arquivos de cache do npm
 package-lock.json
+
+# Ignore arquivos de banco de dados MySQL
+backEndCru/db_data/*.sock
+backEndCru/db_data/*.cnf
+backEndCru/db_data/*.index
+backEndCru/db_data/*.log
+backEndCru/db_data/ib_buffer_pool
+
+git rm --cached backEndCru/db_data/*.sock
+git rm --cached backEndCru/db_data/*.cnf
+git rm --cached backEndCru/db_data/*.index
+git rm --cached backEndCru/db_data/*.log
+git rm --cached backEndCru/db_data/ib_buffer_pool
+git rm --cached backEndCru/db_data/mysql.sock

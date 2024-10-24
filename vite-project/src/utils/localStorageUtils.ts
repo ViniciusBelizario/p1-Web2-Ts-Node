@@ -1,14 +1,37 @@
-// Função para salvar o usuário logado no localStorage
-export const saveUserToLocalStorage = (user: string) => {
-  localStorage.setItem('loggedInUser', user)
-}
+const USER_KEY = 'loggedInUser';
 
-// Função para obter o usuário logado do localStorage
-export const getUserFromLocalStorage = (): string | null => {
-  return localStorage.getItem('loggedInUser')
-}
+// Função para salvar o usuário no localStorage
+export const saveUserToLocalStorage = (user: { email: string; name: string }) => {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    // Verifica se o usuário tem valores válidos
+    if (user && user.email && user.name) {
+      console.log('Tentando salvar no localStorage:', user);
+      localStorage.setItem(USER_KEY, JSON.stringify(user)); // Salva o usuário
+      console.log('Usuário salvo no localStorage:', localStorage.getItem(USER_KEY));
+    } else {
+      console.error('Usuário inválido, não será salvo no localStorage:', user);
+    }
+  } else {
+    console.error('LocalStorage não está disponível.');
+  }
+};
 
-// Função para remover o usuário logado do localStorage
+// Função para obter o usuário do localStorage
+export const getUserFromLocalStorage = () => {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const storedUser = localStorage.getItem(USER_KEY); // Recupera o usuário
+    console.log('Usuário recuperado do localStorage:', storedUser); // Log do usuário recuperado
+    return storedUser ? JSON.parse(storedUser) : null; // Verifica se o usuário existe
+  }
+  return null;
+};
+
+// Função para remover o usuário do localStorage
 export const removeUserFromLocalStorage = () => {
-  localStorage.removeItem('loggedInUser')
-}
+  if (typeof window !== 'undefined' && window.localStorage) {
+    localStorage.removeItem(USER_KEY); // Remove o usuário
+    console.log('Usuário removido do localStorage');
+  } else {
+    console.error('LocalStorage não está disponível.');
+  }
+};

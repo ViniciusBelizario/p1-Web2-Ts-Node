@@ -1,33 +1,32 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
+import sequelize from './config/database';
+import userRoutes from './routes/userRoutes';
+import { seedUsers } from './seedData'; // Importa a função para inserir os usuários
 
 const app = express();
-const port: number = 5000;
+const port = process.env.PORT || 5000;
 
-// Definição de tipos para o usuário
-interface User {
-  email: string;
-  password: string;
-}
-
-// Usuário pré-cadastrado no sistema
-const registeredUser: User = {
-  email: 'admin@admin.com',
-  password: 'admin123' // Não é recomendado enviar senhas em texto puro em produção
-};
-
-// Middleware para permitir requests entre front-end e back-end (CORS)
+// Habilita o CORS para todas as rotas e origens específicas
 app.use(cors({
-  origin: 'http://localhost:5173' // Substitua pela porta onde seu front-end está rodando
+  origin: 'http://localhost:5173',  // Permita apenas o frontend
 }));
 
-// Endpoint para obter o usuário cadastrado
-app.get('/api/user', (req: Request, res: Response) => {
-    console.log('Requisição recebida para /api/user');
-    res.json(registeredUser);
+app.use(express.json());
+
+// Rotas
+app.use('/api', userRoutes);
+
+// Sincroniza o banco de dados e insere os dados iniciais
+sequelize.sync({ alter: true })
+  .then(async () => {
+    console.log('Banco de dados sincronizado e tabela criada ou alterada.');
+    await seedUsers(); // Chama a função para inserir os usuários iniciais
+  })
+  .catch((error) => {
+    console.error('Erro ao sincronizar o banco de dados:', error);
   });
 
-// Inicia o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
