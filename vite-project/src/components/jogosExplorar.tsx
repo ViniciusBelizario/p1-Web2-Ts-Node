@@ -3,8 +3,16 @@ import fifa from '../assets/fifa.svg';
 import godOfWar from '../assets/godOfWar.svg';
 import red from '../assets/reddead.svg';
 import hollow from '../assets/hollow.svg';
+import { useNavigate } from 'react-router-dom';
 
 export function GameRanker() {
+
+  const navigate = useNavigate(); // Inicialize o hook de navegação
+
+  const handleShowMore = () => {
+    navigate('/games'); // Navegue para a rota onde o GamesComponent está configurado
+  };
+
   return (
     <div className="bg-gray-900 min-h-screen text-white">
       {/* Adiciona o componente Navbar */}
@@ -25,7 +33,7 @@ export function GameRanker() {
           </div>
         </div>
         <div className="text-right mt-4">
-          <a href="#" className="text-sm text-gray-400 hover:text-gray-200">
+          <a  onClick={handleShowMore} className="text-sm text-gray-400 hover:text-gray-200">
             Exibir mais...
           </a>
         </div>

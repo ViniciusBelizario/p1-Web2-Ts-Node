@@ -2,30 +2,38 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface Game {
-  rank: number;
-  name: string;
-  developer: string;
+  id: string;
+  title: string;
   genre: string;
   releaseDate: string;
+  developer?: string; // Opcional, caso não tenha no backend
 }
 
 const GamesComponent: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null); // Estado para erro
-  const navigate = useNavigate(); // Hook para navegação
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGames = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/games');
-        
+
         if (!response.ok) {
           throw new Error(`Erro na requisição: ${response.statusText}`);
         }
 
         const data = await response.json();
-        setGames(data); // Certifique-se de que o `data` contenha o array de jogos diretamente
+        // Mapeia os dados para se adequar à interface Game
+        const mappedGames = data.map((game: any) => ({
+          id: game.g_id,
+          title: game.g_title,
+          genre: game.g_genre,
+          releaseDate: new Date(game.g_releaseDate).toLocaleDateString(),
+          developer: game.g_developer || 'Desconhecido', // Campo opcional
+        }));
+        setGames(mappedGames);
         setLoading(false);
       } catch (error) {
         console.error('Erro ao buscar jogos:', error);
@@ -38,7 +46,7 @@ const GamesComponent: React.FC = () => {
   }, []);
 
   const handleBack = () => {
-    navigate('/jogos'); // Navega de volta para a página principal de explorar
+    navigate('/jogos');
   };
 
   if (loading) {
@@ -72,16 +80,14 @@ const GamesComponent: React.FC = () => {
       <h1 className="text-3xl text-white font-bold mb-6">Lista de Jogos</h1>
       {games.map((game) => (
         <div
-          key={game.rank}
+          key={game.id}
           className="bg-gray-800 rounded-lg p-4 mb-4 flex items-center justify-between shadow-md"
         >
-          <div className="flex items-center">
-            <div>
-              <h2 className="text-xl font-semibold text-white">{game.name}</h2>
-              <p className="text-sm text-gray-400">Desenvolvedor: {game.developer}</p>
-              <p className="text-sm text-gray-400">Gênero: {game.genre}</p>
-              <p className="text-sm text-gray-400">Data de Lançamento: {game.releaseDate}</p>
-            </div>
+          <div>
+            <h2 className="text-xl font-semibold text-white">{game.title}</h2>
+            <p className="text-sm text-gray-400">Gênero: {game.genre}</p>
+            <p className="text-sm text-gray-400">Data de Lançamento: {game.releaseDate}</p>
+            <p className="text-sm text-gray-400">Desenvolvedor: {game.developer}</p>
           </div>
         </div>
       ))}

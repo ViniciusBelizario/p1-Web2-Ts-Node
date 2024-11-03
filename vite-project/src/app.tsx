@@ -14,7 +14,7 @@ export function App() {
         <Route path="/" element={storedUser ? <Navigate to="/jogos" /> : <Navigate to="/login" />} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/jogos" element={<GameRanker />} />
-        <Route path="/games/top10" element={<GamesComponent />} /> {/* Página para exibir mais detalhes */}
+        <Route path="/games" element={<GamesComponent />} /> {/* Página para exibir mais detalhes */}
       </Routes>
     </Router>
   );
