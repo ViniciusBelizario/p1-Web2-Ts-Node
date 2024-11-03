@@ -1,9 +1,12 @@
 import express, { Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import User from '../models/user'; // Importa o modelo User
+import authMiddleware from '../authMiddleware'; // Importa o middleware de autenticação
 
 const router = express.Router();
+const jwtSecret = process.env.JWT_SECRET || 'mysecretkey';
 
 // Rota para buscar usuário pelo email e verificar senha
 router.get('/user/:email', async (req: Request, res: Response) => {
@@ -19,7 +22,7 @@ router.get('/user/:email', async (req: Request, res: Response) => {
     const user = await User.findOne({ where: { u_email: email } });
 
     if (!user) {
-      return res.status(404).json({ message: `Usuário com o email "${email}" não encontrado.` });
+      return res.status(404).json({ message: `Usuário com o email "${email}" não encontrado. `});
     }
 
     // Usa bcrypt para comparar a senha fornecida com o hash armazenado
@@ -29,9 +32,14 @@ router.get('/user/:email', async (req: Request, res: Response) => {
       return res.status(401).json({ message: 'Senha incorreta.' });
     }
 
-    // Se a senha estiver correta, retorna o usuário (exceto a senha)
+    // Se a senha estiver correta, gera um token JWT
+    const token = jwt.sign({ email: user.u_email }, jwtSecret, {
+      expiresIn: process.env.JWT_EXPIRES_IN || '1d',
+    });
+
+    // Retorna o token e os dados do usuário (exceto a senha)
     const { u_password, ...userWithoutPassword } = user.get({ plain: true });
-    return res.status(200).json(userWithoutPassword);
+    return res.status(200).json({ token, user: userWithoutPassword });
   } catch (error) {
     return res.status(500).json({ message: 'Erro ao buscar o usuário', error });
   }
@@ -85,5 +93,10 @@ router.post(
     }
   }
 );
+
+// Rota protegida de exemplo
+router.get('/protected', authMiddleware, (req: Request, res: Response) => {
+  res.status(200).json({ message: 'Acesso permitido a rota protegida!' });
+});
 
 export default router;

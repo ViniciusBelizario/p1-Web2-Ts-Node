@@ -44,23 +44,15 @@ export function LoginUser() {
       const registeredUser = await response.json();
       console.log('Usuário recebido do back-end:', registeredUser); // Verifica o retorno do back-end
 
-      // Verifica se o e-mail e a senha estão corretos
-      if (registeredUser.u_email === email) {
-        const userInfo = { email: registeredUser.u_email, name: registeredUser.u_nome };
-        console.log('Usuário a ser salvo no localStorage:', userInfo); // Log do objeto antes de salvar
+      // Armazena o token JWT e outras informações do usuário
+      const { token, user } = registeredUser;
 
-        if (rememberMe) {
-          saveUserToLocalStorage(userInfo); // Salva o usuário no localStorage se o checkbox estiver marcado
-          console.log('Usuário salvo no localStorage:', localStorage.getItem('loggedInUser'));
-        } else {
-          console.log('Usuário não será salvo no localStorage porque "Lembre-se de mim" está desmarcado.');
-        }
-
-        // Redireciona para a tela de jogos após o login bem-sucedido
-        navigate('/jogos', { state: { loggedInUser: registeredUser.u_nome } });
-      } else {
-        setError('E-mail ou senha incorretos');
+      if (rememberMe) {
+        saveUserToLocalStorage({ email: user.u_email, name: user.u_nome, token }); // Salva o token e as informações do usuário no localStorage
       }
+
+      // Redireciona para a tela de jogos após o login bem-sucedido
+      navigate('/jogos', { state: { loggedInUser: user.u_nome } });
     } catch (err: any) {
       console.error('Erro ao fazer login:', err.message);
       setError('Ocorreu um erro ao fazer login. Tente novamente.');
@@ -72,7 +64,7 @@ export function LoginUser() {
   // Verifica se o usuário já está logado no LocalStorage quando o componente monta
   useEffect(() => {
     const storedUser = getUserFromLocalStorage(); // Obtém o usuário do localStorage
-    if (storedUser) {
+    if (storedUser && storedUser.token) {
       console.log('Usuário recuperado do localStorage:', storedUser);
       navigate('/jogos', { state: { loggedInUser: storedUser.name } }); // Redireciona automaticamente se o usuário já estiver logado
     }

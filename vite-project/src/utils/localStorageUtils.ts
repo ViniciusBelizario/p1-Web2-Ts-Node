@@ -1,12 +1,12 @@
 const USER_KEY = 'loggedInUser';
 
-// Função para salvar o usuário no localStorage
-export const saveUserToLocalStorage = (user: { email: string; name: string }) => {
+// Função para salvar o usuário no localStorage, incluindo o token
+export const saveUserToLocalStorage = (user: { email: string; name: string; token: string }) => {
   if (typeof window !== 'undefined' && window.localStorage) {
     // Verifica se o usuário tem valores válidos
-    if (user && user.email && user.name) {
+    if (user && user.email && user.name && user.token) {
       console.log('Tentando salvar no localStorage:', user);
-      localStorage.setItem(USER_KEY, JSON.stringify(user)); // Salva o usuário
+      localStorage.setItem(USER_KEY, JSON.stringify(user)); // Salva o usuário com o token
       console.log('Usuário salvo no localStorage:', localStorage.getItem(USER_KEY));
     } else {
       console.error('Usuário inválido, não será salvo no localStorage:', user);

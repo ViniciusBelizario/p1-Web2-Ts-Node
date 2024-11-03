@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import sequelize from './config/database';
 import userRoutes from './routes/userRoutes';
-import { seedUsers } from './seedData'; // Importa a função para inserir os usuários
+import { seedUsers } from './seedData';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -21,7 +21,7 @@ app.use('/api', userRoutes);
 sequelize.sync({ alter: true })
   .then(async () => {
     console.log('Banco de dados sincronizado e tabela criada ou alterada.');
-    await seedUsers(); // Chama a função para inserir os usuários iniciais
+    await seedUsers();
   })
   .catch((error) => {
     console.error('Erro ao sincronizar o banco de dados:', error);

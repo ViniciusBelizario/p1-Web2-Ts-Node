@@ -1,4 +1,4 @@
-import { Navbar } from './Navbar'; // Ajuste o caminho de acordo com a estrutura de pastas do seu projeto
+import { Navbar } from './navbar'; // Ajuste o caminho de acordo com a estrutura de pastas do seu projeto
 import fifa from '../assets/fifa.svg';
 import godOfWar from '../assets/godOfWar.svg';
 import red from '../assets/reddead.svg';
