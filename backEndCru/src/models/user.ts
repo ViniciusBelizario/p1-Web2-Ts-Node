@@ -14,8 +14,8 @@ User.init(
   {
     u_id: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4, // Gera automaticamente UUID versão 4
-      primaryKey: true, // Define como chave primária
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
     },
     u_nome: {
       type: DataTypes.STRING(255),

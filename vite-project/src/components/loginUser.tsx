@@ -48,7 +48,7 @@ export function LoginUser() {
       const { token, user } = registeredUser;
 
       if (rememberMe) {
-        saveUserToLocalStorage({ email: user.u_email, name: user.u_nome, token }); // Salva o token e as informações do usuário no localStorage
+        saveUserToLocalStorage({ id: user.u_id, email: user.u_email, name: user.u_nome, token }); // Salva o token e as informações do usuário no localStorage
       }
 
       // Redireciona para a tela de jogos após o login bem-sucedido

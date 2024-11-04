@@ -1,5 +1,6 @@
 import express from 'express';
 import Game from '../models/modelgames';
+import { authenticateToken } from '../middleware/authMiddleware'; // Middleware para autenticação, se necessário
 
 const router = express.Router();
 
@@ -14,8 +15,25 @@ router.get('/games', async (req, res) => {
   }
 });
 
-// Rota para cadastrar um novo jogo
-router.post('/games', async (req, res) => {
+// Rota para listar jogos cadastrados por um usuário específico
+router.get('/games/user/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const userGames = await Game.findAll({
+      where: { userId },
+    });
+
+    res.json(userGames);
+  } catch (error) {
+    console.error(`Erro ao buscar jogos do usuário ${userId}:`, error);
+    res.status(500).json({ error: `Erro ao buscar jogos do usuário ${userId}` });
+  }
+});
+
+// Rota para cadastrar um novo jogo associado a um usuário específico
+router.post('/games/user/:userId', async (req, res) => {
+  const { userId } = req.params;
   const { g_title, g_description, g_genre, g_price, g_releaseDate, g_platform } = req.body;
 
   try {
@@ -26,6 +44,7 @@ router.post('/games', async (req, res) => {
       g_price,
       g_releaseDate,
       g_platform,
+      userId, // Associa o jogo ao ID do usuário especificado na URL
     });
 
     res.status(201).json(newGame);

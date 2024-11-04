@@ -15,6 +15,7 @@
     "@radix-ui/react-visually-hidden": "^1.1.0",
     "autoprefixer": "^10.4.20",
     "install": "^0.13.0",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.441.0",
     "npm": "^10.8.3",
     "postcss": "^8.4.47",

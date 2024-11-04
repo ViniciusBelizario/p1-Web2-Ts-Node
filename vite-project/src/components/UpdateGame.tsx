@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getUserFromLocalStorage } from '../utils/localStorageUtils';
 
-export function AddGame() {
+export function UpdateGame() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [genre, setGenre] = useState('');
@@ -10,24 +10,37 @@ export function AddGame() {
   const [releaseDate, setReleaseDate] = useState('');
   const [platform, setPlatform] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const { game } = location.state; // Obtém o jogo passado pela navegação
+
+  useEffect(() => {
+    if (game) {
+      setTitle(game.g_title);
+      setDescription(game.g_description);
+      setGenre(game.g_genre);
+      setPrice(game.g_price.toString());
+      setReleaseDate(game.g_releaseDate);
+      setPlatform(game.g_platform);
+    }
+  }, [game]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Obtem o usuário armazenado no localStorage
     const storedUser = getUserFromLocalStorage();
     if (!storedUser || !storedUser.id) {
-      setError('Erro ao cadastrar o jogo: ID do usuário não encontrado.');
+      setError('Erro ao atualizar o jogo: ID do usuário não encontrado.');
       return;
     }
 
     const userId = storedUser.id;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/games/user/${userId}`, {
-        method: 'POST',
+      const response = await fetch(`http://localhost:5000/api/games/${game.g_id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -43,20 +56,23 @@ export function AddGame() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        setError(`Erro ao cadastrar o jogo: ${errorData.error}`);
+        setError(`Erro ao atualizar o jogo: ${errorData.error}`);
         return;
       }
 
-      navigate('/jogos');
+      setSuccess('Jogo atualizado com sucesso!');
+      setTimeout(() => {
+        navigate('/jogosExplorar'); // Redireciona para a lista de jogos após 2 segundos
+      }, 2000);
     } catch (err) {
-      console.error('Erro ao cadastrar o jogo:', err);
-      setError('Erro ao cadastrar o jogo: Ocorreu um problema no servidor.');
+      console.error('Erro ao atualizar o jogo:', err);
+      setError('Erro ao atualizar o jogo: Ocorreu um problema no servidor.');
     }
   };
 
   return (
     <div className="bg-gray-900 min-h-screen text-white flex flex-col items-center">
-      <h1 className="text-2xl font-bold my-6">Cadastrar Novo Jogo</h1>
+      <h1 className="text-2xl font-bold my-6">Atualizar Jogo</h1>
       <form onSubmit={handleSubmit} className="bg-gray-800 p-6 rounded-lg w-80">
         <label className="block mb-4">
           <span className="text-gray-300">Título:</span>
@@ -118,12 +134,17 @@ export function AddGame() {
           />
         </label>
         <button type="submit" className="bg-green-600 hover:bg-green-700 w-full py-2 rounded-lg">
-          Cadastrar Jogo
+          Atualizar Jogo
         </button>
       </form>
       {error && (
         <p className="text-red-500 mt-4">
           {error}
+        </p>
+      )}
+      {success && (
+        <p className="text-green-500 mt-4">
+          {success}
         </p>
       )}
     </div>

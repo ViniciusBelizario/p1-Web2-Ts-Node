@@ -20,6 +20,14 @@ app.use('/api', userRoutes);
 
 app.use('/api', gameRoutes);
 
+sequelize.sync({ alter: true })
+  .then(() => {
+    console.log('Banco de dados sincronizado com sucesso.');
+  })
+  .catch((error) => {
+    console.error('Erro ao sincronizar o banco de dados:', error);
+  });
+
 // Sincroniza o banco de dados e insere os dados iniciais
 sequelize.sync({ alter: true })
   .then(async () => {

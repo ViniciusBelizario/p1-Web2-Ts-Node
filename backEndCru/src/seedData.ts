@@ -45,9 +45,17 @@ export const seedUsers = async () => {
   }
 };
 
-
+// Função para criar jogos iniciais
 export const seedGames = async () => {
   try {
+    // Obtém um `userId` para associar aos jogos de exemplo
+    const adminUser = await User.findOne({ where: { u_email: 'admin@example.com' } });
+
+    if (!adminUser) {
+      console.log('Usuário admin não encontrado. Não é possível associar jogos a um usuário.');
+      return;
+    }
+
     const existingGames = await Game.findAll({
       where: {
         g_title: [
@@ -74,6 +82,7 @@ export const seedGames = async () => {
           g_price: 69.99,
           g_releaseDate: new Date('2020-06-19'),
           g_platform: 'PlayStation',
+          userId: adminUser.u_id, // Associa o jogo ao admin
         },
         {
           g_title: 'Cyber City 2077',
@@ -82,6 +91,7 @@ export const seedGames = async () => {
           g_price: 59.99,
           g_releaseDate: new Date('2020-12-10'),
           g_platform: 'PC',
+          userId: adminUser.u_id,
         },
         {
           g_title: 'Ancient Quest',
@@ -90,6 +100,7 @@ export const seedGames = async () => {
           g_price: 49.99,
           g_releaseDate: new Date('2018-11-14'),
           g_platform: 'Xbox',
+          userId: adminUser.u_id,
         },
         {
           g_title: 'Galaxy Warriors',
@@ -98,6 +109,7 @@ export const seedGames = async () => {
           g_price: 59.99,
           g_releaseDate: new Date('2017-10-27'),
           g_platform: 'PC',
+          userId: adminUser.u_id,
         },
         {
           g_title: 'Fantasy World Online',
@@ -106,6 +118,7 @@ export const seedGames = async () => {
           g_price: 0.00, // Free-to-play
           g_releaseDate: new Date('2019-09-30'),
           g_platform: 'PC',
+          userId: adminUser.u_id,
         },
         {
           g_title: 'Speed Rush',
@@ -114,6 +127,7 @@ export const seedGames = async () => {
           g_price: 39.99,
           g_releaseDate: new Date('2021-04-02'),
           g_platform: 'PlayStation',
+          userId: adminUser.u_id,
         },
         {
           g_title: 'Battlefield: Frontline',
@@ -122,6 +136,7 @@ export const seedGames = async () => {
           g_price: 59.99,
           g_releaseDate: new Date('2019-10-25'),
           g_platform: 'PC',
+          userId: adminUser.u_id,
         },
         {
           g_title: 'Zombie Survival',
@@ -130,6 +145,7 @@ export const seedGames = async () => {
           g_price: 49.99,
           g_releaseDate: new Date('2020-03-20'),
           g_platform: 'Xbox',
+          userId: adminUser.u_id,
         },
         {
           g_title: 'Mystery Manor',
@@ -138,6 +154,7 @@ export const seedGames = async () => {
           g_price: 29.99,
           g_releaseDate: new Date('2016-05-12'),
           g_platform: 'PC',
+          userId: adminUser.u_id,
         },
         {
           g_title: 'Island Builder',
@@ -146,6 +163,7 @@ export const seedGames = async () => {
           g_price: 19.99,
           g_releaseDate: new Date('2015-08-05'),
           g_platform: 'PC',
+          userId: adminUser.u_id,
         },
       ]);
 
