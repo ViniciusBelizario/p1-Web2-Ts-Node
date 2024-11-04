@@ -3,6 +3,7 @@ import { GameRanker } from './components/jogosExplorar';
 import { LoginUser } from './components/loginUser';
 import GamesComponent from './components/GamesComponent';
 import { getUserFromLocalStorage } from './utils/localStorageUtils'; // Verifica se o usuário está logado
+import { AddGame } from './components/AddGame';
 
 export function App() {
   const storedUser = getUserFromLocalStorage(); // Verifica se o usuário está salvo no localStorage
@@ -15,6 +16,7 @@ export function App() {
         <Route path="/login" element={<LoginUser />} />
         <Route path="/jogos" element={<GameRanker />} />
         <Route path="/games" element={<GamesComponent />} /> {/* Página para exibir mais detalhes */}
+        <Route path="/add-game" element={<AddGame />} /> 
       </Routes>
     </Router>
   );
