@@ -1,6 +1,5 @@
 import express from 'express';
 import Game from '../models/modelgames';
-import { authenticateToken } from '../middleware/authMiddleware'; // Middleware para autenticação, se necessário
 
 const router = express.Router();
 
@@ -51,6 +50,50 @@ router.post('/games/user/:userId', async (req, res) => {
   } catch (error) {
     console.error('Erro ao cadastrar o jogo:', error);
     res.status(500).json({ error: 'Erro ao cadastrar o jogo' });
+  }
+});
+
+// Rota para obter um jogo específico pelo ID
+router.get('/games/:gameId', async (req, res) => {
+  const { gameId } = req.params;
+
+  try {
+    const game = await Game.findByPk(gameId);
+    if (!game) {
+      return res.status(404).json({ error: 'Jogo não encontrado' });
+    }
+    res.json(game);
+  } catch (error) {
+    console.error('Erro ao buscar jogo:', error);
+    res.status(500).json({ error: 'Erro ao buscar jogo' });
+  }
+});
+
+// Rota para atualizar um jogo existente
+router.put('/games/:gameId', async (req, res) => {
+  const { gameId } = req.params;
+  const { g_title, g_description, g_genre, g_price, g_releaseDate, g_platform } = req.body;
+
+  try {
+    const game = await Game.findByPk(gameId);
+    if (!game) {
+      return res.status(404).json({ error: 'Jogo não encontrado' });
+    }
+
+    // Atualiza os dados do jogo
+    await game.update({
+      g_title,
+      g_description,
+      g_genre,
+      g_price,
+      g_releaseDate,
+      g_platform,
+    });
+
+    res.json(game);
+  } catch (error) {
+    console.error('Erro ao atualizar o jogo:', error);
+    res.status(500).json({ error: 'Erro ao atualizar o jogo' });
   }
 });
 
